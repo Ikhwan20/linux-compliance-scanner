@@ -5,8 +5,9 @@
 
   tasks:
     - name: Gather CPU Utilization
-      shell: top -bn1 | grep "Cpu(s)" | awk '{print $2 + $4}'      
-      register: cpu_utilization
+      ansible.builtin.include_role:
+        name: ubuntu
+        tasks_from: cpu_utilization.yml
 
     - name: Gather Free Memory
       shell: free -m | grep Mem | awk '{print $4}'
@@ -49,6 +50,7 @@
           - "Uptime Compliance: {{ uptime_compliance }}"
 
     - name: Insert Compliance Status into PostgreSQL Database
+      delegate_to: localhost
       community.postgresql.postgresql_query:
         login_host: "{{ db_host }}"
         login_user: "{{ db_user }}"
