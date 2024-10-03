@@ -4,6 +4,10 @@
   gather_facts: False
 
   tasks:
+    - name: Set Version
+      set_fact:
+        version: "1.0"
+
     - name: Gather CPU Utilization
       ansible.builtin.include_role:
         name: ubuntu
@@ -61,3 +65,11 @@
           INSERT INTO compliance_status (device_name, cpu_compliance, memory_compliance, disk_compliance, uptime_compliance, overall_compliance)
           VALUES ('{{ inventory_hostname }}', '{{ cpu_compliance }}', '{{ memory_compliance }}', '{{ disk_compliance }}', '{{ uptime_compliance }}', '{{ overall_compliance }}');
 
+- name: Second Play - Use Shared Variable
+  hosts: localhost
+  gather_facts: False
+  
+  tasks:
+    - name: Display the Application version
+      debug: 
+        msg: "The application version is: {{ version }}"
