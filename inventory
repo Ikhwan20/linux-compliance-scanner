@@ -1,0 +1,15 @@
+all:
+  children:
+    reportingserver:
+      hosts:
+        10.128.0.3:  
+    ubuntu:
+      hosts:
+        10.128.0.4:
+        10.128.0.5:
+  vars:
+    db_name: linuxcomplianceresult
+    db_host: 10.128.0.3
+    db_user: admin
+    db_password: ansible
+    db_port: 5432  
