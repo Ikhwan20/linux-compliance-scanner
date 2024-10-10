@@ -2,8 +2,11 @@
 - name: Compliance Check for Devices
   hosts: ubuntu
   gather_facts: False
+  vars:
+    ansible_python_interpreter: /usr/bin/python3
 
   tasks:
+  
     - name: Gather CPU Utilization
       ansible.builtin.include_role:
         name: ubuntu
